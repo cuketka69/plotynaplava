@@ -771,7 +771,7 @@ svg { display: block; }
 
   /* hero: čitelnější a vzdušnější na tabletu/telefonu */
   .hero__inner {
-    padding: 90px 24px 56px; min-height: 0;
+    padding: 140px 24px 56px; min-height: 0;
     flex-direction: column; align-items: stretch;
   }
   .hero__media { inset: 0; opacity: .28; }
