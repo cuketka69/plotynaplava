@@ -322,13 +322,16 @@ if (lb && galleryImgs.length) {
     return m ? m[1] : "";
   });
   let current = 0;
+  let single = false; // jednotlivý obrázek bez šipek (karty Naše služby)
 
   const show = (i) => {
     current = (i + sources.length) % sources.length;
     lbImg.src = sources[current];
     lbCounter.textContent = `${current + 1} / ${sources.length}`;
   };
-  const open = (i) => {
+  const open = (i, singleMode = false) => {
+    single = singleMode;
+    lb.classList.toggle("is-single", single); // skryje šipky + počítadlo
     show(i);
     lb.classList.add("is-open");
     lb.setAttribute("aria-hidden", "false");
@@ -340,15 +343,18 @@ if (lb && galleryImgs.length) {
     document.body.style.overflow = "";
   };
 
-  galleryImgs.forEach((el, i) => el.addEventListener("click", () => open(i)));
+  galleryImgs.forEach((el, i) =>
+    // obrázky z karet (Naše služby) otevři jako jednotlivé, bez přepínání
+    el.addEventListener("click", () => open(i, el.classList.contains("card__img")))
+  );
   document.getElementById("lbClose").addEventListener("click", close);
   document.getElementById("lbPrev").addEventListener("click", (e) => {
     e.stopPropagation();
-    show(current - 1);
+    if (!single) show(current - 1);
   });
   document.getElementById("lbNext").addEventListener("click", (e) => {
     e.stopPropagation();
-    show(current + 1);
+    if (!single) show(current + 1);
   });
   // klik mimo obrázek zavře
   lb.addEventListener("click", (e) => {
@@ -358,6 +364,7 @@ if (lb && galleryImgs.length) {
   document.addEventListener("keydown", (e) => {
     if (!lb.classList.contains("is-open")) return;
     if (e.key === "Escape") close();
+    if (single) return;
     if (e.key === "ArrowLeft") show(current - 1);
     if (e.key === "ArrowRight") show(current + 1);
   });

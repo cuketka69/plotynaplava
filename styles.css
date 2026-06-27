@@ -319,6 +319,9 @@ svg { display: block; }
   color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 600;
   letter-spacing: .05em;
 }
+/* jednotlivý obrázek (karty Naše služby) – bez šipek a počítadla */
+.lightbox.is-single .lightbox__nav,
+.lightbox.is-single .lightbox__counter { display: none; }
 @media (max-width: 560px) {
   .lightbox__nav { width: 42px; height: 42px; }
   .lightbox__nav--prev { left: 10px; }
