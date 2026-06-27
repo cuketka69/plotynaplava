@@ -304,15 +304,16 @@ svg { display: block; }
 .lightbox__close:hover { opacity: 1; transform: scale(1.1); }
 
 .lightbox__nav {
-  position: absolute; top: 50%; transform: translateY(-50%);
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
   width: 50px; height: 50px; border-radius: 50%;
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  background: rgba(0,0,0,.6); border: 2px solid rgba(255,255,255,.85);
   color: #fff; cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,.5);
   transition: .2s;
 }
 .lightbox__nav:hover { background: var(--green); border-color: var(--green); }
-.lightbox__nav--prev { left: 24px; }
-.lightbox__nav--next { right: 24px; }
+.lightbox__nav--prev { left: 16px; }
+.lightbox__nav--next { right: 16px; }
 
 .lightbox__counter {
   position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
