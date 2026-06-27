@@ -785,7 +785,7 @@ svg { display: block; }
   /* ikony výhod ve 2 sloupcích (2×2) */
   .hero__features { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 16px; }
   .hero__features li { width: auto; }
-  .hero__badge { align-self: flex-start; max-width: 100%; margin-top: 64px; }
+  .hero__badge { align-self: stretch; max-width: none; margin-top: 64px; }
   .gallery__head { gap: 14px; }
   .gallery__head .btn { width: 100%; justify-content: center; }
 }
