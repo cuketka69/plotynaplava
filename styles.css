@@ -460,10 +460,10 @@ svg { display: block; }
 .perks__grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
 }
-.perk { text-align: left; }
+.perk { text-align: center; }
 .perk__ico {
   width: 46px; height: 46px; display: grid; place-items: center;
-  color: var(--green); margin-bottom: 14px;
+  color: var(--green); margin: 0 auto 14px;
 }
 .perk__ico svg { width: 30px; height: 30px; }
 .perk h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
