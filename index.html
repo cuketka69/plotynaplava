@@ -68,6 +68,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="hero.webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=14" />
 </head>
@@ -77,7 +78,7 @@
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="#uvod" class="logo">
-        <img src="logo.webp" alt="Ploty Náplava" class="logo__img" />
+        <img src="logo.webp" alt="Ploty Náplava" class="logo__img" width="1642" height="442" decoding="async" />
       </a>
 
       <nav class="nav" id="nav">
@@ -187,7 +188,7 @@
             <h3>KLASICKÉ PLETIVO</h3>
           </div>
           <p>Spolehlivé a cenově dostupné oplocení pro každý pozemek i terén.</p>
-          <div class="card__img" style="background-image:url('1.webp')"></div>
+          <div class="card__img" data-bg="1.webp"></div>
         </article>
 
         <article class="card">
@@ -198,7 +199,7 @@
             <h3>SVAŘOVANÉ PLETIVO</h3>
           </div>
           <p>Pevné a tuhé panely s vysokou odolností a dlouhou životností.</p>
-          <div class="card__img" style="background-image:url('svarovani.webp')"></div>
+          <div class="card__img" data-bg="svarovani.webp"></div>
         </article>
 
         <article class="card">
@@ -209,7 +210,7 @@
             <h3>DŘEVĚNÉ PLOTY</h3>
           </div>
           <p>Přírodní vzhled a soukromí – ploty z kvalitního dřeva na míru.</p>
-          <div class="card__img" style="background-image:url('drevo.webp')"></div>
+          <div class="card__img" data-bg="drevo.webp"></div>
         </article>
 
         <article class="card">
@@ -220,7 +221,7 @@
             <h3>BRÁNY A BRANKY</h3>
           </div>
           <p>Posuvné brány, křídlové brány a branky na míru.</p>
-          <div class="card__img" style="background-image:url('brana.webp')"></div>
+          <div class="card__img" data-bg="brana.webp"></div>
         </article>
       </div>
     </div>
@@ -242,15 +243,15 @@
       </div>
 
       <div class="gallery__grid">
-        <div class="gallery__img" style="background-image:url('1.webp')"></div>
-        <div class="gallery__img" style="background-image:url('6.webp')"></div>
-        <div class="gallery__img" style="background-image:url('7.webp')"></div>
-        <div class="gallery__img" style="background-image:url('8.webp')"></div>
-        <div class="gallery__img" style="background-image:url('9.webp')"></div>
-        <div class="gallery__img gallery__img--extra" style="background-image:url('svarovani.webp')"></div>
-        <div class="gallery__img gallery__img--extra" style="background-image:url('drevo.webp')"></div>
-        <div class="gallery__img gallery__img--extra" style="background-image:url('brana.webp')"></div>
-        <div class="gallery__img gallery__img--extra" style="background-image:url('6.webp')"></div>
+        <div class="gallery__img" data-bg="1.webp"></div>
+        <div class="gallery__img" data-bg="6.webp"></div>
+        <div class="gallery__img" data-bg="7.webp"></div>
+        <div class="gallery__img" data-bg="8.webp"></div>
+        <div class="gallery__img" data-bg="9.webp"></div>
+        <div class="gallery__img gallery__img--extra" data-bg="svarovani.webp"></div>
+        <div class="gallery__img gallery__img--extra" data-bg="drevo.webp"></div>
+        <div class="gallery__img gallery__img--extra" data-bg="brana.webp"></div>
+        <div class="gallery__img gallery__img--extra" data-bg="6.webp"></div>
       </div>
     </div>
   </section>
@@ -263,9 +264,9 @@
       <p class="beforeafter__lead">Přetáhněte posuvník a podívejte se, jak se pozemek proměnil po naší realizaci.</p>
 
       <div class="ba" id="ba">
-        <img class="ba__base" src="po.webp" alt="Po realizaci" />
+        <img class="ba__base" src="po.webp" alt="Po realizaci" width="1448" height="1086" loading="lazy" decoding="async" />
         <div class="ba__before" id="baBefore">
-          <img src="pred.webp" alt="Před realizací" />
+          <img src="pred.webp" alt="Před realizací" width="1450" height="1085" loading="lazy" decoding="async" />
         </div>
         <span class="ba__tag ba__tag--before">PŘED</span>
         <span class="ba__tag ba__tag--after">PO</span>
@@ -296,7 +297,7 @@
         <a href="#kontakt" class="btn btn--primary">NEZÁVAZNĚ POPTAT</a>
       </div>
       <div class="about__media">
-        <img src="onas.webp" alt="Realizace oplocení na klíč" loading="lazy" />
+        <img src="onas.webp" alt="Realizace oplocení na klíč" width="1270" height="987" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
@@ -347,7 +348,7 @@
           <div class="stars">★★★★★</div>
           <p>Skvělá komunikace, rychlá domluva a perfektně odvedená práce. Plot nám dělá radost každý den.</p>
           <div class="review__author">
-            <span class="avatar" style="background-image:url('tomas.webp')"></span>
+            <span class="avatar" data-bg="tomas.webp"></span>
             <div><strong>Tomáš M.</strong><small>Polesovice</small></div>
           </div>
         </article>
@@ -357,7 +358,7 @@
           <div class="stars">★★★★★</div>
           <p>Profesionální přístup od začátku do konce. Kvalitní materiál i montáž. Určitě mohu doporučit!</p>
           <div class="review__author">
-            <span class="avatar" style="background-image:url('lucie.webp')"></span>
+            <span class="avatar" data-bg="lucie.webp"></span>
             <div><strong>Lucie H.</strong><small>Napajedla</small></div>
           </div>
         </article>
@@ -367,7 +368,7 @@
           <div class="stars">★★★★★</div>
           <p>Spolehlivá firma, která ví, co dělá. Vše proběhlo podle domluvy a v termínu. Doporučuji!</p>
           <div class="review__author">
-            <span class="avatar" style="background-image:url('petr.webp')"></span>
+            <span class="avatar" data-bg="petr.webp"></span>
             <div><strong>Petr K.</strong><small>Uherské Hradiště</small></div>
           </div>
         </article>
@@ -377,7 +378,7 @@
           <div class="stars">★★★★★</div>
           <p>Starý dřevěný plot vyměnili za moderní 3D pletivo. Vypadá to skvěle a sousedé se ptají, kdo nám to dělal.</p>
           <div class="review__author">
-            <span class="avatar" style="background-image:url('jana.webp')"></span>
+            <span class="avatar" data-bg="jana.webp"></span>
             <div><strong>Jana S.</strong><small>Staré Město</small></div>
           </div>
         </article>
@@ -387,7 +388,7 @@
           <div class="stars">★★★★★</div>
           <p>Rychlé zaměření a jasná cenová nabídka bez skrytých poplatků. Montáž proběhla čistě a po sobě uklidili.</p>
           <div class="review__author">
-            <span class="avatar" style="background-image:url('martin.webp')"></span>
+            <span class="avatar" data-bg="martin.webp"></span>
             <div><strong>Martin D.</strong><small>Kunovice</small></div>
           </div>
         </article>
@@ -397,7 +398,7 @@
           <div class="stars">★★★★★</div>
           <p>Brána i branka fungují perfektně, ovládání na dálkové. Profesionálové od první schůzky až po předání.</p>
           <div class="review__author">
-            <span class="avatar" style="background-image:url('eva.webp')"></span>
+            <span class="avatar" data-bg="eva.webp"></span>
             <div><strong>Eva R.</strong><small>Veselí nad Moravou</small></div>
           </div>
         </article>
@@ -566,7 +567,7 @@
     <div class="container footer__grid">
       <div class="footer__brand">
         <a href="#uvod" class="logo">
-          <img src="logo.webp" alt="Ploty Náplava" class="logo__img" />
+          <img src="logo.webp" alt="Ploty Náplava" class="logo__img" width="1642" height="442" decoding="async" />
         </a>
         <p>Stavíme ploty, které chrání váš domov i majetek.</p>
 

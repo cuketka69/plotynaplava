@@ -310,6 +310,26 @@ if (ba) {
 }
 
 /* ===== LIGHTBOX GALERIE ===== */
+const lazyBackgrounds = [...document.querySelectorAll("[data-bg]")];
+const loadBackground = (el) => {
+  if (el.dataset.bgLoaded) return;
+  el.style.backgroundImage = `url("${el.dataset.bg}")`;
+  el.dataset.bgLoaded = "true";
+};
+
+if ("IntersectionObserver" in window) {
+  const backgroundObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      loadBackground(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "300px 0px" });
+  lazyBackgrounds.forEach((el) => backgroundObserver.observe(el));
+} else {
+  lazyBackgrounds.forEach(loadBackground);
+}
+
 const galleryImgs = [...document.querySelectorAll(".gallery__img, .card__img")];
 const lb = document.getElementById("lightbox");
 
@@ -318,6 +338,7 @@ if (lb && galleryImgs.length) {
   const lbCounter = document.getElementById("lbCounter");
   // získání URL z inline stylu background-image
   const sources = galleryImgs.map((el) => {
+    if (el.dataset.bg) return el.dataset.bg;
     const m = el.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
     return m ? m[1] : "";
   });
