@@ -724,19 +724,19 @@ svg { display: block; }
 /* ===== SCROLL REVEAL ===== */
 .reveal {
   opacity: 0;
-  /* posun + jemné zmenšení a rozostření = bohatší "nalétnutí" */
-  transform: translate3d(var(--rx, 0), var(--ry, 56px), 0) scale(var(--rs, .94));
-  filter: blur(8px);
+  /* kratší a jemnější odhalení, aby obsah při scrollování nezůstával skrytý */
+  transform: translate3d(var(--rx, 0), var(--ry, 36px), 0) scale(var(--rs, .98));
+  filter: blur(3px);
   transition:
-    opacity .8s cubic-bezier(.16,.84,.34,1),
-    transform .9s cubic-bezier(.16,.84,.34,1),
-    filter .8s ease;
+    opacity .55s cubic-bezier(.16,.84,.34,1),
+    transform .7s cubic-bezier(.16,.84,.34,1),
+    filter .55s ease;
   will-change: opacity, transform, filter;
 }
-.reveal--left  { --rx: -90px;  --ry: 0;   --rs: .96; }
-.reveal--right { --rx: 90px;   --ry: 0;   --rs: .96; }
-.reveal--up    { --rx: 0;      --ry: 56px; --rs: .94; }
-.reveal--down  { --rx: 0;      --ry: -56px; --rs: .94; }
+.reveal--left  { --rx: -56px;  --ry: 0;   --rs: .98; }
+.reveal--right { --rx: 56px;   --ry: 0;   --rs: .98; }
+.reveal--up    { --rx: 0;      --ry: 36px; --rs: .98; }
+.reveal--down  { --rx: 0;      --ry: -36px; --rs: .98; }
 .reveal.is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
@@ -820,8 +820,8 @@ svg { display: block; }
   /* na malých displejích posun ze stran zkrátíme – plynulejší, bez „skoku" */
   .reveal--left  { --rx: -42px; }
   .reveal--right { --rx: 42px; }
-  /* slabší blur = svižnější animace na slabších telefonech */
-  .reveal { filter: blur(5px); }
+  /* jen lehké rozostření = svižnější animace na slabších telefonech */
+  .reveal { filter: blur(2px); }
 
   /* před/po: větší úchyt pro prst */
   .ba__grip { width: 52px; height: 52px; }

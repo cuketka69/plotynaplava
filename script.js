@@ -107,7 +107,7 @@ sections.forEach((s) => observer.observe(s));
       // u "alt" se směr střídá – liché prvky zleva, sudé zprava
       const d = dir === "alt" ? (i % 2 ? "right" : "left") : dir;
       el.classList.add("reveal", "reveal--" + d);
-      el.style.transitionDelay = Math.min(i * step, 540) + "ms";
+      el.style.transitionDelay = Math.min(i * step, 360) + "ms";
       all.push(el);
     });
   });
@@ -128,7 +128,7 @@ sections.forEach((s) => observer.observe(s));
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+    { threshold: 0.08, rootMargin: "0px 0px 12% 0px" }
   );
   all.forEach((el) => obs.observe(el));
 })();
@@ -324,7 +324,7 @@ if ("IntersectionObserver" in window) {
       loadBackground(entry.target);
       observer.unobserve(entry.target);
     });
-  }, { rootMargin: "300px 0px" });
+  }, { rootMargin: "700px 0px" });
   lazyBackgrounds.forEach((el) => backgroundObserver.observe(el));
 } else {
   lazyBackgrounds.forEach(loadBackground);
