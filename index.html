@@ -549,11 +549,14 @@
   <!-- ===== MAPA ===== -->
   <section class="map" id="mapa" aria-label="Kde nás najdete">
     <iframe
-      src="https://www.google.com/maps?q=Polesovice%20297%2C%20687%2037%20Polesovice&t=k&z=16&output=embed"
+      data-src="https://www.google.com/maps?q=Polesovice%20297%2C%20687%2037%20Polesovice&t=k&z=16&output=embed"
       title="Mapa – Ploty Náplava, Polesovice 297"
-      loading="lazy"
+      loading="eager"
       referrerpolicy="no-referrer-when-downgrade"
       allowfullscreen></iframe>
+    <noscript>
+      <p><a href="https://www.google.com/maps?q=Polesovice%20297%2C%20687%2037%20Polesovice" target="_blank" rel="noopener">Otevřít mapu v Google Maps</a></p>
+    </noscript>
     <a class="map__nav btn btn--ghost" id="mapNav"
        href="https://www.google.com/maps/dir/?api=1&destination=Polesovice%20297%2C%20687%2037%20Polesovice"
        target="_blank" rel="noopener">

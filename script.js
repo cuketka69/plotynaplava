@@ -850,6 +850,25 @@ Jak odpovídat:
 
 /* ===== TLAČÍTKO NAVIGOVAT (plnění → otevření navigace) ===== */
 (() => {
+  const mapFrame = document.querySelector(".map iframe[data-src]");
+  if (mapFrame) {
+    const loadMap = () => {
+      if (mapFrame.src) return;
+      mapFrame.src = mapFrame.dataset.src;
+    };
+
+    if ("IntersectionObserver" in window) {
+      const mapObserver = new IntersectionObserver((entries, observer) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        loadMap();
+        observer.disconnect();
+      }, { rootMargin: "1200px 0px" });
+      mapObserver.observe(mapFrame);
+    } else {
+      loadMap();
+    }
+  }
+
   const nav = document.getElementById("mapNav");
   if (!nav) return;
 
