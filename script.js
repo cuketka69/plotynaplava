@@ -655,17 +655,18 @@ if (form) {
   const toggle = document.getElementById("chatToggle");
   const panel = document.getElementById("chatPanel");
   const list = document.getElementById("chatMessages");
+  const quick = document.getElementById("chatQuick");
+  const closeButton = document.getElementById("chatClose");
   const form = document.getElementById("chatForm");
   const input = document.getElementById("chatInput");
+  const sendButton = form.querySelector(".chat__send");
   if (!root || !toggle || !form) return;
 
   // ⚠️ POZOR: tento klíč je viditelný v kódu stránky – komukoliv, kdo si web otevře.
   // Vhodné JEN na testování / lokální zkoušení. Na veřejný web použijte backend
   // (api/chat.js) a klíč nechte na serveru. Sem vložte svůj klíč "sk-ant-...":
-  const CLAUDE_API_KEY = "";
 
   // Model: nejschopnější je "claude-opus-4-8". Pro web bývá levnější "claude-haiku-4-5".
-  const CLAUDE_MODEL = "claude-opus-4-8";
 
   const SYSTEM_PROMPT = `Jsi přátelský český asistent firmy Ploty Náplava – rodinné firmy z okolí Uherského Hradiště (sídlo Polešovice 297, 687 37 Polešovice), která staví ploty, brány a branky na klíč.
 
@@ -688,28 +689,18 @@ Jak odpovídat:
 
   // zavolá Claude API přímo z prohlížeče
   const askClaude = async (msgs) => {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("/api/chat", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-api-key": CLAUDE_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true",
       },
       body: JSON.stringify({
-        model: CLAUDE_MODEL,
-        max_tokens: 1024,
-        system: SYSTEM_PROMPT,
         messages: msgs.slice(-20).map((m) => ({ role: m.role, content: m.content })),
       }),
     });
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
-    return (data.content || [])
-      .filter((b) => b.type === "text")
-      .map((b) => b.text)
-      .join("")
-      .trim();
+    return (data.reply || "").trim();
   };
 
   // historie konverzace pro kontext (role user/assistant)
@@ -735,9 +726,18 @@ Jak odpovídat:
     toggle.setAttribute("aria-expanded", "false");
     panel.setAttribute("aria-hidden", "true");
   };
+  closeButton?.addEventListener("click", close);
   toggle.addEventListener("click", () =>
     root.classList.contains("is-open") ? close() : open()
   );
+
+  quick?.querySelectorAll(".chat__quick-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      input.value = button.dataset.question || button.textContent.trim();
+      quick.classList.add("is-hidden");
+      form.requestSubmit();
+    });
+  });
 
   // jednoduché vykreslení odkazů a zalomení
   const escapeHtml = (s) =>
@@ -765,7 +765,9 @@ Jak odpovídat:
     addMsg(text, "user");
     history.push({ role: "user", content: text });
     input.value = "";
+    quick?.classList.add("is-hidden");
     busy = true;
+    if (sendButton) sendButton.disabled = true;
 
     const typing = document.createElement("div");
     typing.className = "chat__msg chat__msg--bot chat__msg--typing";
@@ -790,6 +792,7 @@ Jak odpovídat:
       );
     } finally {
       busy = false;
+      if (sendButton) sendButton.disabled = false;
       input.focus();
     }
   });

@@ -682,14 +682,22 @@
         </span>
         <div class="chat__head-text">
           <strong>Asistent Ploty Náplava</strong>
-          <small>Zeptejte se na ploty, brány nebo poptávku</small>
+          <small><span class="chat__status" aria-hidden="true"></span>Online · poradí s plotem i poptávkou</small>
         </div>
+        <button type="button" class="chat__close" id="chatClose" aria-label="Zavřít chat">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
 
       <div class="chat__messages" id="chatMessages" aria-live="polite" data-lenis-prevent></div>
+      <div class="chat__quick" id="chatQuick" aria-label="Rychlé otázky">
+        <button type="button" class="chat__quick-btn" data-question="Jaký plot je vhodný pro můj pozemek?">Jaký plot vybrat?</button>
+        <button type="button" class="chat__quick-btn" data-question="Jak probíhá zaměření a cenová nabídka?">Jak probíhá nabídka?</button>
+        <button type="button" class="chat__quick-btn" data-question="Chci nezávazně poptat plot.">Chci poptávku</button>
+      </div>
 
       <form class="chat__form" id="chatForm">
-        <input type="text" id="chatInput" autocomplete="off" placeholder="Napište zprávu…" aria-label="Zpráva" />
+        <input type="text" id="chatInput" autocomplete="off" maxlength="500" placeholder="Napište zprávu…" aria-label="Zpráva" />
         <button type="submit" class="chat__send" aria-label="Odeslat">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
