@@ -715,7 +715,7 @@ Jak odpovídat:
     if (!greeted) {
       greeted = true;
       addMsg(
-        "Dobrý den! 👋 Jsem asistent firmy Ploty Náplava. Poradím s výběrem plotu, bran nebo branek a nasměruji vás k nezávazné poptávce. S čím vám mohu pomoci?",
+        "Dobrý den! 👋 Pomohu vám vybrat plot, bránu nebo branku a připravit nezávaznou poptávku. S čím vám mohu pomoci?",
         "bot"
       );
     }
