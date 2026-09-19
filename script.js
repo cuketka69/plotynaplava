@@ -657,12 +657,13 @@ if (form) {
 
     // Bez endpointu → otevře předvyplněný e-mail
     if (!FORMSPREE_ENDPOINT) {
+      const fullPhone = `${data.telefonPredvolba || "+420"} ${data.telefon}`.trim();
       const fotkyText = files.length
         ? `\n\nPřiložené fotky (${files.length}): přidejte je prosím ručně jako přílohu e-mailu:\n` +
           files.map((f) => "- " + f.name).join("\n")
         : "";
       const body =
-        `Jméno: ${data.jmeno}\nTelefon: ${data.telefon}\nE-mail: ${data.email}\n` +
+        `Jméno: ${data.jmeno}\nTelefon: ${fullPhone}\nE-mail: ${data.email}\n` +
         `Typ plotu: ${data.typ || "neuvedeno"}\n\nZpráva:\n${data.zprava || "-"}` + fotkyText;
       const mailto =
         `mailto:snaplava@seznam.cz?subject=${encodeURIComponent("Poptávka plotu – " + data.jmeno)}` +

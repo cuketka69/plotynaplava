@@ -71,7 +71,7 @@
   <link rel="preload" as="image" href="hero.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="panacekuvod.webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=24" />
+  <link rel="stylesheet" href="styles.css?v=25" />
 </head>
 <body>
 
@@ -494,7 +494,16 @@
             </div>
             <div class="field">
               <label for="telefon">Telefon *</label>
-              <input type="tel" id="telefon" name="telefon" autocomplete="tel" required placeholder="+420 777 123 456" />
+              <div class="phone-input">
+                <select id="telefonPredvolba" name="telefonPredvolba" autocomplete="tel-country-code" aria-label="Předvolba telefonu">
+                  <option value="+420" selected>🇨🇿 +420</option>
+                  <option value="+421">🇸🇰 +421</option>
+                  <option value="+48">🇵🇱 +48</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+43">🇦🇹 +43</option>
+                </select>
+                <input type="tel" id="telefon" name="telefon" autocomplete="tel-national" required placeholder="777 123 456" />
+              </div>
             </div>
           </div>
 
@@ -729,6 +738,6 @@
   </div>
 
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="script.js?v=19"></script>
+  <script src="script.js?v=20"></script>
 </body>
 </html>
