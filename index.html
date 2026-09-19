@@ -654,6 +654,11 @@
     <div class="lightbox__counter" id="lbCounter"></div>
   </div>
 
+  <div class="lightbox upload-lightbox" id="uploadPreview" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Náhled nahrané fotografie">
+    <button class="lightbox__close" id="uploadPreviewClose" aria-label="Zavřít náhled">&times;</button>
+    <img class="lightbox__img" id="uploadPreviewImg" src="" alt="" />
+  </div>
+
   <!-- ===== POTVRZENÍ ODESLÁNÍ ===== -->
   <div class="success" id="successOverlay" aria-hidden="true">
     <div class="success__inner">
@@ -724,6 +729,6 @@
   </div>
 
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="script.js?v=18"></script>
+  <script src="script.js?v=19"></script>
 </body>
 </html>

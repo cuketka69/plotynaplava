@@ -445,7 +445,12 @@ if (form) {
   const fileInput = document.getElementById("fotky");
   const dropZone = form.querySelector(".upload");
   const fileList = document.getElementById("uploadList");
+  const uploadPreview = document.getElementById("uploadPreview");
+  const uploadPreviewImg = document.getElementById("uploadPreviewImg");
+  const uploadPreviewClose = document.getElementById("uploadPreviewClose");
   let files = []; // vlastní seznam, aby šlo mazat jednotlivé položky
+  const previewUrls = new Map();
+  let previewTrigger = null;
 
   const fmtSize = (b) =>
     b < 1024 * 1024 ? Math.round(b / 1024) + " kB" : (b / 1024 / 1024).toFixed(1) + " MB";
@@ -456,16 +461,62 @@ if (form) {
     fileInput.files = dt.files;
   };
 
+  const getPreviewUrl = (file) => {
+    if (!previewUrls.has(file)) previewUrls.set(file, URL.createObjectURL(file));
+    return previewUrls.get(file);
+  };
+
+  const releasePreviewUrl = (file) => {
+    const url = previewUrls.get(file);
+    if (!url) return;
+    URL.revokeObjectURL(url);
+    previewUrls.delete(file);
+  };
+
+  const closeUploadPreview = () => {
+    if (!uploadPreview) return;
+    uploadPreview.classList.remove("is-open");
+    uploadPreview.setAttribute("aria-hidden", "true");
+    uploadPreviewImg.removeAttribute("src");
+    document.body.style.overflow = "";
+    previewTrigger?.focus();
+    previewTrigger = null;
+  };
+
+  const openUploadPreview = (file, trigger) => {
+    if (!uploadPreview || !uploadPreviewImg) return;
+    previewTrigger = trigger;
+    uploadPreviewImg.src = getPreviewUrl(file);
+    uploadPreviewImg.alt = file.name;
+    uploadPreview.classList.add("is-open");
+    uploadPreview.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    uploadPreviewClose?.focus();
+  };
+
+  uploadPreviewClose?.addEventListener("click", closeUploadPreview);
+  uploadPreview?.addEventListener("click", (e) => {
+    if (e.target === uploadPreview || e.target === uploadPreviewImg) closeUploadPreview();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && uploadPreview?.classList.contains("is-open")) closeUploadPreview();
+  });
+
   const renderFiles = () => {
     fileList.innerHTML = "";
     files.forEach((file, i) => {
       const li = document.createElement("li");
       li.className = "upload__item";
+      const preview = document.createElement("button");
+      preview.type = "button";
+      preview.className = "upload__preview";
+      preview.setAttribute("aria-label", "Otevřít náhled " + file.name);
       const img = document.createElement("img");
       img.className = "upload__thumb";
-      img.alt = "";
-      img.src = URL.createObjectURL(file);
-      img.onload = () => URL.revokeObjectURL(img.src);
+      img.alt = "Náhled souboru " + file.name;
+      img.src = getPreviewUrl(file);
+      preview.appendChild(img);
+      preview.addEventListener("click", () => openUploadPreview(file, preview));
       const name = document.createElement("span");
       name.className = "upload__name";
       name.textContent = file.name;
@@ -478,11 +529,13 @@ if (form) {
       rm.setAttribute("aria-label", "Odebrat " + file.name);
       rm.innerHTML = "&times;";
       rm.addEventListener("click", () => {
+        closeUploadPreview();
+        releasePreviewUrl(file);
         files.splice(i, 1);
         syncInput();
         renderFiles();
       });
-      li.append(img, name, size, rm);
+      li.append(preview, name, size, rm);
       fileList.appendChild(li);
     });
   };
@@ -505,6 +558,14 @@ if (form) {
       files.push(file);
     }
     syncInput();
+    renderFiles();
+  };
+
+  const clearFiles = () => {
+    closeUploadPreview();
+    previewUrls.forEach((url) => URL.revokeObjectURL(url));
+    previewUrls.clear();
+    files = [];
     renderFiles();
   };
 
@@ -617,8 +678,7 @@ if (form) {
         "success"
       );
       form.reset();
-      files = [];
-      renderFiles();
+      clearFiles();
       btn.disabled = false;
       return;
     }
@@ -635,8 +695,7 @@ if (form) {
       if (res.ok) {
         await playSuccess(btn); // naplnění tlačítka + fajfka
         form.reset();
-        files = [];
-        renderFiles();
+        clearFiles();
         setStatus("Děkujeme! Vaši poptávku jsme přijali a brzy se ozveme.", "success");
       } else {
         throw new Error("server");
