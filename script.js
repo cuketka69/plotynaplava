@@ -23,6 +23,8 @@
     if (!link) return;
     const id = link.getAttribute("href");
     if (!id || id === "#") return;
+    // Tlačítko s vlastní animací nejdřív dokončí výplň a scroll spustí samo.
+    if (link.id === "heroGallery" || link.classList.contains("btn--fill")) return;
     const target = document.querySelector(id);
     if (!target) return;
     e.preventDefault();
@@ -935,9 +937,13 @@ Jak odpovídat:
   const btn = document.getElementById("heroGallery");
   if (!btn) return;
   btn.addEventListener("click", (e) => {
-    if (btn.classList.contains("is-filling")) return;
+    if (btn.classList.contains("is-filling")) {
+      e.preventDefault();
+      return;
+    }
     e.preventDefault();
     btn.classList.add("is-filling");
+    btn.setAttribute("aria-busy", "true");
     setTimeout(() => {
       const target = document.getElementById("ukazky");
       if (target) {
@@ -945,7 +951,10 @@ Jak odpovídat:
         else target.scrollIntoView({ behavior: "smooth" });
       }
       // po dojetí efekt zruš, ať je tlačítko zase připravené
-      setTimeout(() => btn.classList.remove("is-filling"), 600);
+      setTimeout(() => {
+        btn.classList.remove("is-filling");
+        btn.removeAttribute("aria-busy");
+      }, 600);
     }, 720);
   });
 })();
