@@ -399,18 +399,43 @@ const FORMSPREE_ENDPOINT = "";
 
 const form = document.getElementById("poptavkaForm");
 const status = document.getElementById("formStatus");
+const formAlert = document.getElementById("formAlert");
+const formAlertText = document.getElementById("formAlertText");
+const formAlertClose = document.getElementById("formAlertClose");
 
 if (form) {
+  let formAlertTimer;
+
   const setStatus = (msg, type) => {
     status.textContent = msg;
     status.className = "form__status" + (type ? " is-" + type : "");
   };
+
+  const hideFormAlert = () => {
+    clearTimeout(formAlertTimer);
+    formAlert?.classList.remove("is-visible");
+    formAlert?.setAttribute("aria-hidden", "true");
+  };
+
+  const showFormAlert = (labels, firstField) => {
+    if (!formAlert || !formAlertText) return;
+    clearTimeout(formAlertTimer);
+    formAlertText.textContent = `Doplňte prosím: ${labels.join(", ")}.`;
+    formAlert.classList.add("is-visible");
+    formAlert.setAttribute("aria-hidden", "false");
+    firstField?.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => firstField?.focus({ preventScroll: true }), 250);
+    formAlertTimer = setTimeout(hideFormAlert, 7000);
+  };
+
+  formAlertClose?.addEventListener("click", hideFormAlert);
 
   // Odebrání chybového stavu při psaní
   form.querySelectorAll("input, select, textarea").forEach((el) => {
     el.addEventListener("input", () => {
       el.classList.remove("is-invalid");
       el.closest(".gdpr")?.classList.remove("is-invalid");
+      hideFormAlert();
     });
   });
 
@@ -511,20 +536,24 @@ if (form) {
   });
 
   const validate = () => {
-    let ok = true;
-    const required = ["jmeno", "telefon", "email"];
-    required.forEach((name) => {
+    const invalidFields = [];
+    const required = [
+      { name: "jmeno", label: "jméno a příjmení" },
+      { name: "telefon", label: "telefon" },
+      { name: "email", label: "e-mail" },
+    ];
+    required.forEach(({ name, label }) => {
       const el = form.elements[name];
       const valid = el.value.trim() !== "" && (el.type !== "email" || /.+@.+\..+/.test(el.value));
       el.classList.toggle("is-invalid", !valid);
-      if (!valid) ok = false;
+      if (!valid) invalidFields.push({ label, el });
     });
     const souhlas = form.elements["souhlas"];
     if (!souhlas.checked) {
       souhlas.closest(".gdpr").classList.add("is-invalid");
-      ok = false;
+      invalidFields.push({ label: "souhlas se zpracováním osobních údajů", el: souhlas });
     }
-    return ok;
+    return { ok: invalidFields.length === 0, invalidFields };
   };
 
   /* animace odeslání: naplnění tlačítka → fajfka přes obrazovku */
@@ -552,8 +581,13 @@ if (form) {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!validate()) {
+    const validation = validate();
+    if (!validation.ok) {
       setStatus("Zkontrolujte prosím povinná pole (*) a souhlas.", "error");
+      showFormAlert(
+        validation.invalidFields.map(({ label }) => label),
+        validation.invalidFields[0]?.el
+      );
       return;
     }
 

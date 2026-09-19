@@ -71,7 +71,7 @@
   <link rel="preload" as="image" href="hero.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="panacekuvod.webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=21" />
+  <link rel="stylesheet" href="styles.css?v=22" />
 </head>
 <body>
 
@@ -549,6 +549,15 @@
     </div>
   </section>
 
+  <aside class="form-alert" id="formAlert" role="alert" aria-live="assertive" aria-hidden="true">
+    <img src="pozor.webp" alt="" width="64" height="64" />
+    <div>
+      <strong>Ještě něco doplňte</strong>
+      <p id="formAlertText">Zkontrolujte prosím označená pole.</p>
+    </div>
+    <button type="button" class="form-alert__close" id="formAlertClose" aria-label="Zavřít upozornění">×</button>
+  </aside>
+
   <!-- ===== MAPA ===== -->
   <section class="map" id="mapa" aria-label="Kde nás najdete">
     <iframe
@@ -715,6 +724,6 @@
   </div>
 
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="script.js?v=15"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>
