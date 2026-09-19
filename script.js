@@ -402,9 +402,43 @@ const status = document.getElementById("formStatus");
 const formAlert = document.getElementById("formAlert");
 const formAlertText = document.getElementById("formAlertText");
 const formAlertClose = document.getElementById("formAlertClose");
+const formPrefill = document.getElementById("formPrefill");
+const formPrefillUse = document.getElementById("formPrefillUse");
+const formPrefillClear = document.getElementById("formPrefillClear");
+const rememberContact = document.getElementById("rememberContact");
 
 if (form) {
   let formAlertTimer;
+  const PREFILL_KEY = "plotyPoptavkaContact";
+
+  const getSavedProfile = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(PREFILL_KEY) || "null");
+      return saved && saved.jmeno && saved.telefon && saved.email ? saved : null;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const renderPrefill = () => {
+    if (formPrefill) formPrefill.hidden = !getSavedProfile();
+  };
+
+  const fillSavedProfile = () => {
+    const saved = getSavedProfile();
+    if (!saved) return;
+    form.elements["jmeno"].value = saved.jmeno;
+    form.elements["telefon"].value = saved.telefon;
+    form.elements["email"].value = saved.email;
+    if (rememberContact) rememberContact.checked = true;
+    form.querySelectorAll(".is-invalid").forEach((el) => el.classList.remove("is-invalid"));
+    setStatus("Údaje byly předvyplněny.", "success");
+  };
+
+  const clearSavedProfile = () => {
+    try { localStorage.removeItem(PREFILL_KEY); } catch (e) {}
+    if (formPrefill) formPrefill.hidden = true;
+  };
 
   const setStatus = (msg, type) => {
     status.textContent = msg;
@@ -429,6 +463,9 @@ if (form) {
   };
 
   formAlertClose?.addEventListener("click", hideFormAlert);
+  formPrefillUse?.addEventListener("click", fillSavedProfile);
+  formPrefillClear?.addEventListener("click", clearSavedProfile);
+  renderPrefill();
 
   // Odebrání chybového stavu při psaní
   form.querySelectorAll("input, select, textarea").forEach((el) => {
@@ -593,6 +630,16 @@ if (form) {
 
     const data = Object.fromEntries(new FormData(form).entries());
     const btn = form.querySelector(".form__submit");
+
+    if (rememberContact?.checked) {
+      try {
+        localStorage.setItem(PREFILL_KEY, JSON.stringify({
+          jmeno: data.jmeno,
+          telefon: data.telefon,
+          email: data.email,
+        }));
+      } catch (e) {}
+    }
 
     // Bez endpointu → otevře předvyplněný e-mail
     if (!FORMSPREE_ENDPOINT) {
