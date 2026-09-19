@@ -71,7 +71,7 @@
   <link rel="preload" as="image" href="hero.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="panacekuvod.webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=23" />
+  <link rel="stylesheet" href="styles.css?v=24" />
 </head>
 <body>
 
@@ -487,11 +487,6 @@
         </div>
 
         <form class="form" id="poptavkaForm" autocomplete="on" novalidate>
-          <div class="form__prefill" id="formPrefill" hidden>
-            <span>Máte uložené údaje z minula?</span>
-            <button type="button" id="formPrefillUse">Vyplnit údaje</button>
-            <button type="button" class="form__prefill-clear" id="formPrefillClear" aria-label="Zapomenout uložené údaje">Zapomenout</button>
-          </div>
           <div class="form__row">
             <div class="field">
               <label for="jmeno">Jméno a příjmení *</label>
@@ -540,11 +535,6 @@
           <label class="gdpr">
             <input type="checkbox" id="souhlas" name="souhlas" required />
             <span>Souhlasím se <a href="zasady-osobnich-udaju" target="_blank" rel="noopener">zpracováním osobních údajů</a> za účelem vyřízení poptávky.</span>
-          </label>
-
-          <label class="form__remember">
-            <input type="checkbox" id="rememberContact" />
-            <span>Zapamatovat jméno, telefon a e-mail v tomto zařízení</span>
           </label>
 
           <button type="submit" class="btn btn--light form__submit">
@@ -734,6 +724,6 @@
   </div>
 
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="script.js?v=17"></script>
+  <script src="script.js?v=18"></script>
 </body>
 </html>

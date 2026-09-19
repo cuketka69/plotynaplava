@@ -550,19 +550,6 @@ svg { display: block; }
 
 /* ===== FORM ===== */
 .form { display: grid; gap: 16px; }
-.form__prefill {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px;
-  padding: 10px 12px; border: 1px solid rgba(255,255,255,.24);
-  border-radius: 9px; background: rgba(255,255,255,.1); color: #fff; font-size: .82rem;
-}
-.form__prefill[hidden] { display: none; }
-.form__prefill button {
-  border: 0; border-radius: 6px; padding: 6px 9px;
-  background: #fff; color: var(--green-d); font: inherit; font-weight: 700; cursor: pointer;
-}
-.form__prefill button:hover { background: var(--dark); color: #fff; }
-.form__prefill .form__prefill-clear { padding-inline: 4px; background: transparent; color: rgba(255,255,255,.7); font-weight: 500; }
-.form__prefill .form__prefill-clear:hover { background: transparent; color: #fff; text-decoration: underline; }
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .field { display: grid; gap: 6px; }
 .field label {
@@ -663,8 +650,6 @@ svg { display: block; }
 .gdpr a { color: #fff; text-decoration: underline; font-weight: 700; }
 .gdpr a:hover { color: var(--dark); }
 .gdpr.is-invalid span { color: #ffe0e0; text-decoration: underline; text-decoration-color: #ffb3b3; }
-.form__remember { display: flex; align-items: flex-start; gap: 8px; color: rgba(255,255,255,.72); font-size: .74rem; line-height: 1.35; cursor: pointer; }
-.form__remember input { width: 15px; height: 15px; margin-top: 1px; accent-color: var(--dark); flex-shrink: 0; cursor: pointer; }
 
 .form__submit {
   width: 100%; justify-content: center; margin-top: 4px;
