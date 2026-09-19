@@ -53,24 +53,29 @@ if (toggle && nav) {
   });
 }
 
-// Zvýraznění aktivní položky v menu podle scrollu
-const sections = [...document.querySelectorAll("section[id]")];
+// Zvýraznění aktivní položky v menu podle scrollu.
+// Aktivní zůstává poslední relevantní položka i v mezilehlých sekcích,
+// které vlastní položku v hlavičce nemají (např. Před / Po nebo FAQ).
 const links = [...document.querySelectorAll(".nav__link")];
+const navTargets = links
+  .map((link) => ({ link, section: document.querySelector(link.getAttribute("href")) }))
+  .filter(({ section }) => section);
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        links.forEach((l) =>
-          l.classList.toggle("is-active", l.getAttribute("href") === "#" + id)
-        );
-      }
-    });
-  },
-  { rootMargin: "-45% 0px -50% 0px" }
-);
-sections.forEach((s) => observer.observe(s));
+const updateActiveNav = () => {
+  const marker = window.scrollY + 130;
+  let active = navTargets[0];
+
+  navTargets.forEach((target) => {
+    const top = target.section.getBoundingClientRect().top + window.scrollY;
+    if (top <= marker) active = target;
+  });
+
+  links.forEach((link) => link.classList.toggle("is-active", link === active?.link));
+};
+
+window.addEventListener("scroll", updateActiveNav, { passive: true });
+window.addEventListener("resize", updateActiveNav);
+updateActiveNav();
 
 /* ===== SCROLL REVEAL (postupné nalétávání) ===== */
 (() => {
