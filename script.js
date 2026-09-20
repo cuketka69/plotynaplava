@@ -263,7 +263,7 @@ updateActiveNav();
   };
   const start = () => {
     stop();
-    if (!reduce && pages > 1) timer = setInterval(next, DELAY);
+    if (pages > 1) timer = setInterval(next, DELAY);
   };
 
   // pauza při najetí / dotyku / ovládání z klávesnice, pak zase rozjet
