@@ -836,18 +836,32 @@ Jak odpovídat:
 - Nevymýšlej si údaje, které tu nejsou uvedené.`;
 
   // zavolá Claude API přímo z prohlížeče
+  let conversationId = "";
+
   const askClaude = async (msgs) => {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        messages: msgs.slice(-20).map((m) => ({ role: m.role, content: m.content })),
-      }),
-    });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
+    const res = await fetch(
+      "https://dashboard.webilio.cz/api/public/ai-chat/message?site_key=plotynaplava",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          site_key: "plotynaplava",
+          conversation_id: conversationId || undefined,
+          messages: msgs.slice(-20).map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+        }),
+      }
+    );
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+      throw new Error(data.error || "HTTP " + res.status);
+    }
+    conversationId = String(data.conversation_id || conversationId || "");
     return (data.reply || "").trim();
   };
 
