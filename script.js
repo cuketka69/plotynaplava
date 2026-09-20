@@ -55,6 +55,44 @@ if (toggle && nav) {
   });
 }
 
+// Přepínač jazyka
+const languageSwitcher = document.querySelector(".language-switcher");
+const languageToggle = document.getElementById("languageToggle");
+const languageMenu = document.getElementById("languageMenu");
+const languageCurrentFlag = document.getElementById("languageCurrentFlag");
+const languageOptions = [...document.querySelectorAll(".language-option")];
+if (languageSwitcher && languageToggle && languageMenu && languageCurrentFlag) {
+  const closeLanguageMenu = () => {
+    languageSwitcher.classList.remove("is-open");
+    languageToggle.setAttribute("aria-expanded", "false");
+    languageMenu.hidden = true;
+  };
+
+  languageToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = languageSwitcher.classList.toggle("is-open");
+    languageToggle.setAttribute("aria-expanded", String(isOpen));
+    languageMenu.hidden = !isOpen;
+  });
+
+  languageOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const selectedLanguage = option.dataset.language || "cs";
+      window.localStorage.setItem("ploty-language", selectedLanguage);
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", selectedLanguage);
+      window.location.assign(url.href);
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!languageSwitcher.contains(e.target)) closeLanguageMenu();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLanguageMenu();
+  });
+}
+
 // Zvýraznění aktivní položky v menu podle scrollu.
 // Aktivní zůstává poslední relevantní položka i v mezilehlých sekcích,
 // které vlastní položku v hlavičce nemají (např. Před / Po nebo FAQ).
@@ -144,6 +182,8 @@ updateActiveNav();
 (() => {
   const track = document.getElementById("reviewsTrack");
   const dotsWrap = document.getElementById("reviewDots");
+  const prevBtn = document.getElementById("reviewPrev");
+  const nextBtn = document.getElementById("reviewNext");
   if (!track || !dotsWrap) return;
 
   const cards = [...track.children];
@@ -157,6 +197,12 @@ updateActiveNav();
 
   let pages = 1;
 
+  const currentPage = () =>
+    Math.min(pages - 1, Math.max(0, Math.round(track.scrollLeft / track.clientWidth)));
+
+  const goToPage = (page) =>
+    track.scrollTo({ left: page * track.clientWidth, behavior: "smooth" });
+
   const buildDots = () => {
     pages = Math.ceil(cards.length / perView());
     dotsWrap.innerHTML = "";
@@ -165,19 +211,19 @@ updateActiveNav();
       b.type = "button";
       b.setAttribute("role", "tab");
       b.setAttribute("aria-label", `Stránka recenzí ${i + 1}`);
-      b.addEventListener("click", () =>
-        track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" })
-      );
+      b.addEventListener("click", () => goToPage(i));
       dotsWrap.appendChild(b);
     }
     syncActive();
   };
 
   const syncActive = () => {
-    const active = Math.round(track.scrollLeft / track.clientWidth);
+    const active = currentPage();
     [...dotsWrap.children].forEach((d, i) =>
       d.classList.toggle("is-active", i === active)
     );
+    if (prevBtn) prevBtn.disabled = pages <= 1;
+    if (nextBtn) nextBtn.disabled = pages <= 1;
   };
 
   let raf = null;
@@ -204,10 +250,11 @@ updateActiveNav();
   let timer = null;
 
   const next = () => {
-    const cur = Math.round(track.scrollLeft / track.clientWidth);
-    const np = (cur + 1) % pages; // po poslední stránce zpět na začátek
-    track.scrollTo({ left: np * track.clientWidth, behavior: "smooth" });
+    goToPage((currentPage() + 1) % pages); // po poslední stránce zpět na začátek
   };
+  const previous = () => goToPage((currentPage() - 1 + pages) % pages);
+  prevBtn?.addEventListener("click", previous);
+  nextBtn?.addEventListener("click", next);
   const stop = () => {
     if (timer) {
       clearInterval(timer);
