@@ -12,7 +12,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=4" />
   <link rel="shortcut icon" href="favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="favicon.png?v=4" />
-  <link rel="canonical" href="https://www.plotynaplava.cz/" />
+  <link rel="canonical" href="https://plotynaplava.cz/" />
 
 
   <!-- Open Graph / Facebook -->
@@ -21,8 +21,8 @@
   <meta property="og:site_name" content="Ploty Náplava" />
   <meta property="og:title" content="Ploty Uherské Hradiště a Zlín | Ploty Náplava" />
   <meta property="og:description" content="Kvalitní ploty, brány a branky na míru. Bezplatné zaměření a nezávazná nabídka v Uherském Hradišti, Zlíně a okolí." />
-  <meta property="og:url" content="https://www.plotynaplava.cz/" />
-  <meta property="og:image" content="https://www.plotynaplava.cz/hero.webp" />
+  <meta property="og:url" content="https://plotynaplava.cz/" />
+  <meta property="og:image" content="https://plotynaplava.cz/hero.webp" />
   <meta property="og:image:alt" content="Moderní oplocení od firmy Ploty Náplava" />
   <meta property="og:locale:alternate" content="sk_SK" />
   <meta property="og:locale:alternate" content="en_GB" />
@@ -32,7 +32,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ploty Uherské Hradiště a Zlín | Ploty Náplava" />
   <meta name="twitter:description" content="Kvalitní ploty, brány a branky na míru. Bezplatné zaměření a nezávazná nabídka v Uherském Hradišti, Zlíně a okolí." />
-  <meta name="twitter:image" content="https://www.plotynaplava.cz/hero.webp" />
+  <meta name="twitter:image" content="https://plotynaplava.cz/hero.webp" />
   <meta name="twitter:image:alt" content="Moderní oplocení od firmy Ploty Náplava" />
 
   <!-- Strukturovaná data: firma -->
@@ -40,12 +40,25 @@
   {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "GeneralContractor"],
+    "@id": "https://plotynaplava.cz/#business",
     "name": "Ploty Náplava",
     "description": "Montáž plotů, bran a branek na klíč – pletivo, svařované panely, dřevěné ploty, posuvné a křídlové brány.",
-    "url": "https://www.plotynaplava.cz/",
+    "url": "https://plotynaplava.cz/",
     "telephone": "+420723123456",
     "email": "snaplava@seznam.cz",
-    "image": "https://www.plotynaplava.cz/hero.webp",
+    "image": "https://plotynaplava.cz/hero.webp",
+    "logo": "https://plotynaplava.cz/logo.webp",
+    "knowsAbout": ["ploty", "pletivo", "svařované 3D panely", "dřevěné ploty", "brány", "branky", "montáž oplocení"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Ploty, brány a branky",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Montáž klasického pletiva" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Montáž svařovaných 3D panelů" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Montáž dřevěných plotů" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Montáž bran a branek" } }
+      ]
+    },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Polešovice 297",
@@ -63,6 +76,21 @@
     ]
   }
   </script>
+
+  <!-- Strukturovaná data: web -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://plotynaplava.cz/#website",
+    "url": "https://plotynaplava.cz/",
+    "name": "Ploty Náplava",
+    "alternateName": "Ploty Náplava – ploty, brány a branky",
+    "inLanguage": "cs-CZ",
+    "publisher": { "@id": "https://plotynaplava.cz/#business" }
+  }
+  </script>
+
 
   <!-- Strukturovaná data: časté dotazy -->
   <script type="application/ld+json">
