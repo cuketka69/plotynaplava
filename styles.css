@@ -552,6 +552,8 @@ svg { display: block; }
 .about__grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
 }
+.about__img { cursor: zoom-in; }
+
 .about__media img {
   width: 100%; border-radius: var(--radius);
   object-fit: cover; aspect-ratio: 4 / 3;

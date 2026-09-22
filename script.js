@@ -384,7 +384,7 @@ if ("IntersectionObserver" in window) {
   lazyBackgrounds.forEach(loadBackground);
 }
 
-const galleryImgs = [...document.querySelectorAll(".gallery__img, .card__img")];
+const galleryImgs = [...document.querySelectorAll(".gallery__img, .card__img, .about__img")];
 const lb = document.getElementById("lightbox");
 
 if (lb && galleryImgs.length) {
@@ -393,6 +393,7 @@ if (lb && galleryImgs.length) {
   // získání URL z inline stylu background-image
   const sources = galleryImgs.map((el) => {
     if (el.dataset.bg) return el.dataset.bg;
+    if (el.tagName === "IMG") return el.currentSrc || el.src;
     const m = el.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
     return m ? m[1] : "";
   });
@@ -420,7 +421,7 @@ if (lb && galleryImgs.length) {
 
   galleryImgs.forEach((el, i) =>
     // obrázky z karet (Naše služby) otevři jako jednotlivé, bez přepínání
-    el.addEventListener("click", () => open(i, el.classList.contains("card__img")))
+    el.addEventListener("click", () => open(i, el.classList.contains("card__img") || el.classList.contains("about__img")))
   );
   document.getElementById("lbClose").addEventListener("click", close);
   document.getElementById("lbPrev").addEventListener("click", (e) => {
