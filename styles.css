@@ -950,8 +950,8 @@ svg { display: block; }
 
 
 
-/* Hero sekce se skládá do mobilního rozložení pod 840 px */
-@media (max-width: 840px) {
+/* Hero sekce se skládá do mobilního rozložení pod 792 px */
+@media (max-width: 792px) {
   .hero .hero__inner {
     padding: 80px 24px 56px; min-height: 0;
     flex-direction: column; align-items: stretch;
