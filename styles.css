@@ -96,7 +96,7 @@ svg { display: block; }
 }
 .header__inner { display: flex; align-items: center; gap: 28px; height: 76px; }
 
-.logo { display: inline-flex; align-items: center; gap: 12px; }
+.logo { display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .logo__mark {
   display: grid; grid-template-columns: repeat(4, 5px); gap: 3px;
   height: 30px; align-items: end;
@@ -111,7 +111,7 @@ svg { display: block; }
   display: flex; flex-direction: column;
 }
 .logo__text small { color: var(--green); font-size: .72rem; font-weight: 700; letter-spacing: .22em; }
-.logo__img { height: 40px; width: auto; }
+.logo__img { display: block; height: 40px; width: auto; flex: 0 0 auto; }
 
 .nav { display: flex; gap: 28px; margin-left: 20px; }
 .nav__link {
