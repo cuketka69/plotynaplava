@@ -932,6 +932,24 @@ svg { display: block; }
   .hero__mascot { width: min(58vw, 360px); height: 68%; right: 1%; opacity: .4; }
   .hero__badge { position: static; margin-top: 30px; }
 }
+
+/* Header s dropdown menu pro menší notebooky a tablety */
+@media (max-width: 1195px) {
+  .nav, .btn-phone, .header__cta { display: none; }
+  .nav-toggle { display: flex; margin-left: 0; }
+  .header__whatsapp { display: none; }
+  .header__phone { display: inline-flex; margin-left: auto; }
+  .language-switcher { margin-left: 0; }
+  .whatsapp-float { display: none; }
+  .nav.is-open {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+    position: absolute; top: 76px; left: 0; right: 0;
+    background: var(--dark-2); padding: 6px 24px 10px; margin: 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .nav.is-open .nav__link { padding: 11px 0; font-size: .9rem; }
+}
+
 @media (max-width: 980px) {
   .nav, .btn-phone, .header__cta { display: none; }
   .nav-toggle { display: flex; margin-left: 0; }
