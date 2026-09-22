@@ -972,7 +972,7 @@ svg { display: block; }
     flex-direction: column; align-items: stretch;
   }
   .hero__media { inset: 0; opacity: .28; }
-  .hero__mascot { width: min(62vw, 300px); height: 56%; right: 0; opacity: .26; }
+  .hero__mascot { width: min(62vw, 300px); height: 56%; right: 0; z-index: 3; opacity: .55; }
   .hero__content { max-width: none; display: flex; flex-direction: column; }
   .hero__lead { font-size: 1rem; margin: 18px 0 28px; }
   .hero__features { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 16px; }
