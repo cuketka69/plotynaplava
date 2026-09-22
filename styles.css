@@ -1098,7 +1098,7 @@ svg { display: block; }
 }
 .success.is-visible .success__inner { transform: scale(1); }
 
-.success__check { width: clamp(120px, 30vw, 170px); height: clamp(120px, 30vw, 170px); }
+.success__check { display: block; width: clamp(120px, 30vw, 170px); height: clamp(120px, 30vw, 170px); margin: 0 auto; }
 .success__circle {
   fill: none; stroke: rgba(255,255,255,.9); stroke-width: 2.5;
   stroke-dasharray: 151; stroke-dashoffset: 151;
