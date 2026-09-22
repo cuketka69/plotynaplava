@@ -1252,3 +1252,6 @@ svg { display: block; }
   .chat__form input { min-height: 42px; padding-inline: 14px; font-size: .86rem; }
   .chat__send { width: 42px; height: 42px; border-radius: 12px; }
 }
+
+/* Dočasně skrytá Google recenze – Seznam zůstává viditelný. */
+.review-badges a.google-reviews:not(.seznam-reviews) { display: none; }
