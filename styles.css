@@ -927,6 +927,10 @@ svg { display: block; }
     width: 100%;
     max-width: none;
   }
+  .hero__title br,
+  .hero__lead br {
+    display: none;
+  }
 }
 
 @media (max-width: 980px) {
