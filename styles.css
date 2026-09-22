@@ -268,6 +268,7 @@ svg { display: block; }
   font-size: .86rem; max-width: 360px;
 }
 .hero__badge svg { color: var(--green); flex-shrink: 0; }
+.hero__badge-mascot { display: none; }
 .hero__badge-map {
   width: 64px; height: 44px; flex: 0 0 64px;
   object-fit: cover; border-radius: 6px;
@@ -980,7 +981,7 @@ svg { display: block; }
   .hero__badge {
     position: static; align-self: stretch; max-width: none; margin-top: 64px;
     display: grid; grid-template-columns: auto 1fr;
-    grid-template-areas: "icon text" ". map";
+    grid-template-areas: "icon text" ". mascot" ". map";
     align-items: center; column-gap: 12px; row-gap: 10px;
   }
   .hero__badge > svg { grid-area: icon; }
@@ -988,6 +989,12 @@ svg { display: block; }
     grid-area: text; white-space: nowrap; text-align: left;
   }
   .hero__badge > span br { display: none; }
+  .hero__mascot { display: none; }
+  .hero__badge-mascot {
+    grid-area: mascot; grid-column: 1 / -1; justify-self: center;
+    display: block; width: min(44vw, 240px); height: 220px;
+    object-fit: contain;
+  }
   .hero__badge-map {
     grid-area: map; grid-column: 1 / -1; justify-self: stretch;
     width: 100%; height: auto; aspect-ratio: 3 / 2; flex-basis: auto;
