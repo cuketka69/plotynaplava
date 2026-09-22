@@ -977,8 +977,21 @@ svg { display: block; }
   .hero__lead { font-size: 1rem; margin: 18px 0 28px; }
   .hero__features { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 16px; }
   .hero__features li { width: auto; }
-  .hero__badge { position: static; align-self: stretch; max-width: none; margin-top: 64px; }
-  .hero__badge-map { width: 104px; height: 72px; flex-basis: 104px; }
+  .hero__badge {
+    position: static; align-self: stretch; max-width: none; margin-top: 64px;
+    display: grid; grid-template-columns: auto 1fr;
+    grid-template-areas: "icon text" ". map";
+    align-items: center; column-gap: 12px; row-gap: 10px;
+  }
+  .hero__badge > svg { grid-area: icon; }
+  .hero__badge > span {
+    grid-area: text; white-space: nowrap; text-align: left;
+  }
+  .hero__badge > span br { display: none; }
+  .hero__badge-map {
+    grid-area: map; justify-self: center;
+    width: 104px; height: 72px; flex-basis: auto;
+  }
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .btn { width: 100%; justify-content: center; }
 
