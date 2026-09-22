@@ -830,7 +830,7 @@ Co firma nabízí:
 - Brány a branky – posuvné i křídlové brány, branky, možnost dálkového ovládání.
 - Bezplatné zaměření a nezávazná cenová nabídka, vlastní montážní tým, práce v termínu.
 
-Kontakt: telefon +420 737 803 040, e-mail snaplava@seznam.cz.
+Kontakt: telefon +420 737 803 040, e-mail radecek.nevaril64@gmail.com.
 Otevírací doba: Po–Pá 8:00–17:00, So 9:00–12:00, Ne zavřeno (telefonicky i mimo dobu).
 
 Jak odpovídat:
@@ -954,7 +954,7 @@ Jak odpovídat:
     } catch (err) {
       typing.remove();
       addMsg(
-        "Omlouvám se, teď se nemohu spojit. Zavolejte nám prosím na +420 737 803 040 nebo napište na snaplava@seznam.cz.",
+        "Omlouvám se, teď se nemohu spojit. Zavolejte nám prosím na +420 737 803 040 nebo napište na radecek.nevaril64@gmail.com.",
         "bot"
       );
     } finally {
