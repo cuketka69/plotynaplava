@@ -937,6 +937,12 @@ svg { display: block; }
   }
 }
 
+
+/* Užší mobilní šířky: nadpis se zalomí v přirozeném místě */
+@media (min-width: 460px) and (max-width: 503px) {
+  .hero__title br { display: block; }
+}
+
 @media (max-width: 980px) {
   .cards, .perks__grid, .stats__grid { grid-template-columns: repeat(2, 1fr); }
   .process__grid { grid-template-columns: repeat(2, 1fr); }
