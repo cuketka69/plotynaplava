@@ -343,7 +343,7 @@ svg { display: block; }
 }
 .process__step h3 { margin-bottom: 10px; font-size: 1.02rem; }
 .process__step p { color: var(--muted); font-size: .9rem; line-height: 1.65; }
-.process__cta { margin-top: 30px; }
+.process__cta { margin-top: 30px; width: 100%; justify-content: center; }
 
 /* ===== WHATSAPP ===== */
 .whatsapp-float {
