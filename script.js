@@ -450,7 +450,10 @@ if (lb && galleryImgs.length) {
 // Pro reálné odesílání e-mailem si zdarma vytvořte endpoint na https://formspree.io
 // a vložte jeho adresu níže (např. "https://formspree.io/f/abcdwxyz").
 // Dokud zůstane prázdný, formulář otevře připravený e-mail v poštovním klientovi.
-const FORMSPREE_ENDPOINT = "";
+const FORMMAIL_ENDPOINT = "https://dashboard.webilio.cz/api/public/formmail";
+const FORMMAIL_SITE_ID = "cc7ea04a-1644-45a6-af65-b4c4a21a5d1b";
+const FORMMAIL_WEB = "Ploty Náplava";
+const FORMMAIL_DOMAIN = "plotynaplava.cz";
 
 const form = document.getElementById("poptavkaForm");
 const status = document.getElementById("formStatus");
@@ -710,58 +713,59 @@ if (form) {
     const data = Object.fromEntries(new FormData(form).entries());
     const btn = form.querySelector(".form__submit");
 
-    // Bez endpointu → otevře předvyplněný e-mail
-    if (!FORMSPREE_ENDPOINT) {
-      const fullPhone = `${data.telefonPredvolba || "+420"} ${data.telefon}`.trim();
-      const fotkyText = files.length
-        ? `\n\nPřiložené fotky (${files.length}): přidejte je prosím ručně jako přílohu e-mailu:\n` +
-          files.map((f) => "- " + f.name).join("\n")
-        : "";
-      const body =
-        `Jméno: ${data.jmeno}\nTelefon: ${fullPhone}\nE-mail: ${data.email}\n` +
-        `Typ plotu: ${data.typ || "neuvedeno"}\n\nZpráva:\n${data.zprava || "-"}` + fotkyText;
-      const mailto =
-        `mailto:snaplava@seznam.cz?subject=${encodeURIComponent("Poptávka plotu – " + data.jmeno)}` +
-        `&body=${encodeURIComponent(body)}`;
+    // FormMail očekává JSON; soubory posíláme jako názvy, protože tento endpoint není multipart upload.
+    const rawFields = Object.fromEntries(
+      [...new FormData(form).entries()]
+        .filter(([key, value]) => key !== "fotky" && typeof value === "string")
+        .map(([key, value]) => [key, value.trim()])
+    );
+    const fullPhone = String(data.telefonPredvolba || "+420") + " " + String(data.telefon || "");
+    const payload = {
+      site_id: FORMMAIL_SITE_ID,
+      web: FORMMAIL_WEB,
+      domain: FORMMAIL_DOMAIN,
+      name: data.jmeno?.trim() || "",
+      email: data.email?.trim() || "",
+      phone: fullPhone.trim(),
+      message: data.zprava?.trim() || "",
+      service: data.typ?.trim() || "",
+      ...rawFields,
+      phone: fullPhone.trim(),
+      message: data.zprava?.trim() || "",
+      fotky: files.map((file) => file.name),
+    };
 
-      btn.disabled = true;
-      await playSuccess(btn); // naplnění tlačítka + fajfka
-      window.location.href = mailto; // otevře předvyplněný e-mail
-      setStatus(
-        files.length
-          ? "Otevíráme e-mail s poptávkou – fotky prosím přidejte jako přílohu."
-          : "Otevíráme váš e-mailový klient s předvyplněnou poptávkou…",
-        "success"
-      );
-      form.reset();
-      clearFiles();
-      btn.disabled = false;
-      return;
-    }
+    if (btn.disabled) return;
 
-    // S endpointem → reálné odeslání
     try {
       btn.disabled = true;
       setStatus("Odesílám…", "");
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(FORMMAIL_ENDPOINT, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(form),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
-      if (res.ok) {
-        await playSuccess(btn); // naplnění tlačítka + fajfka
-        form.reset();
-        clearFiles();
-        setStatus("Děkujeme! Vaši poptávku jsme přijali a brzy se ozveme.", "success");
-      } else {
-        throw new Error("server");
+      const responseData = await response.json().catch(() => ({}));
+      if (!response.ok || responseData.ok === false || responseData.success === false) {
+        throw new Error(responseData.error || responseData.message || "Formulář se nepodařilo odeslat.");
       }
-    } catch (err) {
-      setStatus("Odeslání se nezdařilo. Zavolejte nám prosím na +420 737 803 040.", "error");
+
+      await playSuccess(btn);
+      form.reset();
+      clearFiles();
+      setStatus("Děkujeme! Vaši poptávku jsme přijali a brzy se ozveme.", "success");
+    } catch (error) {
+      setStatus(
+        error.message || "Odeslání se nezdařilo. Zavolejte nám prosím na +420 737 803 040.",
+        "error"
+      );
     } finally {
       btn.disabled = false;
     }
-  });
+    });
 }
 
 /* ===== COOKIE LIŠTA ===== */
