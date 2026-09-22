@@ -269,6 +269,7 @@ svg { display: block; }
 }
 .hero__badge svg { color: var(--green); flex-shrink: 0; }
 .hero__mobile-mascot { display: none; }
+.hero__mobile-image { display: none; }
 .hero__badge-map {
   width: 64px; height: 44px; flex: 0 0 64px;
   object-fit: cover; border-radius: 6px;
@@ -980,14 +981,11 @@ svg { display: block; }
   .hero__lead { font-size: 1rem; margin: 18px 0 28px; }
   .hero__features { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 16px; }
   .hero__features li { width: auto; }
-  .hero__mobile-mascot {
-    display: block; width: min(65vw, 340px); height: clamp(340px, 52vw, 440px);
-    margin: 0 auto 14px; object-fit: contain;
-  }
+  .hero__mobile-mascot { display: none; }
   .hero__badge {
     position: static; align-self: stretch; max-width: none; margin-top: 0;
     display: grid; grid-template-columns: auto 1fr;
-    grid-template-areas: "icon text" ". map";
+    grid-template-areas: "icon text" ". image";
     align-items: center; column-gap: 12px; row-gap: 10px;
   }
   .hero__badge > svg { grid-area: icon; }
@@ -996,10 +994,10 @@ svg { display: block; }
   }
   .hero__badge > span br { display: none; }
   .hero__mascot { display: none; }
-  .hero__badge-map {
-    grid-area: map; grid-column: 1 / -1; justify-self: stretch;
-    width: 100%; height: auto; aspect-ratio: 3 / 2; flex-basis: auto;
-    object-fit: contain;
+  .hero__badge-map { display: none; }
+  .hero__mobile-image {
+    grid-area: image; grid-column: 1 / -1; justify-self: stretch;
+    display: block; width: 100%; height: auto; object-fit: contain;
   }
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .btn { width: 100%; justify-content: center; }
